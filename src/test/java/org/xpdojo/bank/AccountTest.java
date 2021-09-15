@@ -9,6 +9,7 @@ import java.io.StringWriter;
 import java.sql.Time;
 import java.time.LocalDateTime;
 import java.util.Calendar;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -117,6 +118,15 @@ public class AccountTest {
         assertTrue(account.getOperations().isEmpty());
     }
 
+    @Test
+    public void accountKeepsTrackOfOperations() {
+        final Account account = new Account();
+        account.deposit(100);
+        account.withdraw(100);
+
+        List<Operation> ops = account.getOperations();
+        assertEquals(2, ops.size());
+    }
 
 
 }

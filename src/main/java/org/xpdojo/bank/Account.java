@@ -1,14 +1,16 @@
 package org.xpdojo.bank;
 
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.Collections;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.List;
 
 public class Account {
     private int amount;
+    private ArrayList<Operation> operations = new ArrayList<>();
 
     public void deposit(final int value) {
         amount += value;
+        operations.add(new Operation());
     }
 
     public int getAmount() {
@@ -20,6 +22,7 @@ public class Account {
             throw new IllegalStateException();
         }
         amount -= value;
+        operations.add(new Operation());
     }
 
     public void transfer(final Account to, int value) {
@@ -30,7 +33,7 @@ public class Account {
         this.amount -= value;
     }
 
-    public Collection getOperations() {
-        return Collections.EMPTY_LIST;
+    public List<Operation> getOperations() {
+        return (List<Operation>) operations.clone();
     }
 }
