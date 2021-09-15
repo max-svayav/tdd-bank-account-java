@@ -1,5 +1,7 @@
 package org.xpdojo.bank;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 public class Account {
     private int amount;
 
@@ -16,5 +18,10 @@ public class Account {
             throw new IllegalStateException();
         }
         amount -= value;
+    }
+
+    public void transfer(final Account to, final Account from, int value) {
+        to.amount += value;
+        from.amount -= value;
     }
 }

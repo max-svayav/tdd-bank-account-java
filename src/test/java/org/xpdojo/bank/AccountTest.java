@@ -61,4 +61,18 @@ public class AccountTest {
         });
     }
 
+    @Test
+    public void canTransferFromAnAccount() {
+        final Account from = new Account();
+        final Account to = new Account();
+        final int fromAmount = from.getAmount();
+        final int toAmount = to.getAmount();
+        final int value = 100;
+        from.transfer(to, from, value);
+        assertEquals(toAmount + 100, to.getAmount());
+        assertEquals(fromAmount - 100, from.getAmount());
+    }
+
+
+
 }
