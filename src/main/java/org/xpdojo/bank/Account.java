@@ -12,6 +12,9 @@ public class Account {
     }
 
     public void withdraw(final int value) {
+        if (0 == amount) {
+            throw new IllegalStateException();
+        }
         amount -= value;
     }
 }

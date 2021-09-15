@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class AccountTest {
 
@@ -34,10 +35,19 @@ public class AccountTest {
     @Test
     public void withdrawAnAmount() {
         subject = new Account();
-        final int initial = subject.getAmount();
         final int val = 100;
+        subject.deposit(val);
+        final int initial = subject.getAmount();
         subject.withdraw(100);
         assertEquals(initial - val, subject.getAmount());
+    }
+
+    @Test
+    public void cantWithdrawBeforeDepositing() {
+        assertThrows(IllegalStateException.class, () -> {
+            subject = new Account();
+            subject.withdraw(100);
+        });
     }
 
 }
