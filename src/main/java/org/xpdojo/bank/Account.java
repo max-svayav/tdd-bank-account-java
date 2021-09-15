@@ -1,7 +1,6 @@
 package org.xpdojo.bank;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class Account {
@@ -10,7 +9,7 @@ public class Account {
 
     public void deposit(final int value) {
         amount += value;
-        operations.add(new Operation());
+        operations.add(Operation.createDeposit());
     }
 
     public int getAmount() {
@@ -22,7 +21,7 @@ public class Account {
             throw new IllegalStateException();
         }
         amount -= value;
-        operations.add(new Operation());
+        operations.add(Operation.createWithdrawal());
     }
 
     public void transfer(final Account to, int value) {
@@ -30,9 +29,9 @@ public class Account {
             throw new IllegalStateException();
         }
         to.amount += value;
-        to.operations.add(new Operation());
+        to.operations.add(Operation.createTransfer());
         this.amount -= value;
-        this.operations.add(new Operation());
+        this.operations.add(Operation.createTransfer());
     }
 
     public List<Operation> getOperations() {

@@ -124,6 +124,7 @@ public class AccountTest {
         account.deposit(100);
         List<Operation> ops = account.getOperations();
         assertEquals(1, ops.size());
+        assertEquals(OperationType.Deposit, ops.get(0).getOperationType());
     }
 
     @Test
@@ -133,6 +134,7 @@ public class AccountTest {
         account.withdraw(100);
         List<Operation> ops = account.getOperations();
         assertEquals(2, ops.size());
+        assertEquals(OperationType.Withdrawal, ops.get(1).getOperationType());
     }
 
     @Test
@@ -143,7 +145,10 @@ public class AccountTest {
         from.transfer(to, from.getAmount());
         final List<Operation> fromOps = from.getOperations();
         assertEquals(2, fromOps.size());
+        assertEquals(OperationType.Transfer, fromOps.get(1).getOperationType());
         final List<Operation> toOps = to.getOperations();
         assertEquals(1, toOps.size());
+        assertEquals(OperationType.Transfer, toOps.get(0).getOperationType());
     }
+
 }
