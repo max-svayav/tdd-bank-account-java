@@ -3,14 +3,15 @@ package org.xpdojo.bank;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
 import java.io.PrintStream;
 import java.io.StringWriter;
+import java.sql.Time;
 import java.time.LocalDateTime;
 import java.util.Calendar;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class AccountTest {
 
@@ -61,7 +62,7 @@ public class AccountTest {
             subject = new Account();
             final int val = 100;
             subject.deposit(val);
-            final int amount  = subject.getAmount();
+            final int amount = subject.getAmount();
             subject.withdraw(amount + 1);
         });
     }
@@ -94,6 +95,20 @@ public class AccountTest {
         final LocalDateTime now = LocalDateTime.now();
         keeper.setTime(now);
         assertEquals(now, keeper.getTime());
+    }
+
+    @Test
+    public void canPrintSlip() throws IOException {
+        final TimeKeeper keeper = new TimeKeeper();
+        final LocalDateTime now = LocalDateTime.now();
+        keeper.setTime(now);
+        final StringWriter writer = new StringWriter();
+        final SlipPrinter printer = new SlipPrinter(writer, keeper);
+        final Account account = new Account();
+        printer.printSlip(account);
+        final String s = writer.toString();
+        assertTrue(s.startsWith(now.toString()));
+        assertTrue(s.endsWith(String.valueOf(account.getAmount())));
     }
 
 }
