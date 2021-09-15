@@ -119,14 +119,31 @@ public class AccountTest {
     }
 
     @Test
-    public void accountKeepsTrackOfOperations() {
+    public void accountKeepsTrackOfDeposits() {
+        final Account account = new Account();
+        account.deposit(100);
+        List<Operation> ops = account.getOperations();
+        assertEquals(1, ops.size());
+    }
+
+    @Test
+    public void accountKeepsTrackOfWithdrawals() {
         final Account account = new Account();
         account.deposit(100);
         account.withdraw(100);
-
         List<Operation> ops = account.getOperations();
         assertEquals(2, ops.size());
     }
 
-
+    @Test
+    public void accountKeepsTrackOfTransfers() {
+        final Account from = new Account();
+        from.deposit(100);
+        final Account to = new Account();
+        from.transfer(to, from.getAmount());
+        final List<Operation> fromOps = from.getOperations();
+        assertEquals(2, fromOps.size());
+        final List<Operation> toOps = to.getOperations();
+        assertEquals(1, toOps.size());
+    }
 }

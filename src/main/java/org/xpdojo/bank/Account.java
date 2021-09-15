@@ -30,7 +30,9 @@ public class Account {
             throw new IllegalStateException();
         }
         to.amount += value;
+        to.operations.add(new Operation());
         this.amount -= value;
+        this.operations.add(new Operation());
     }
 
     public List<Operation> getOperations() {
