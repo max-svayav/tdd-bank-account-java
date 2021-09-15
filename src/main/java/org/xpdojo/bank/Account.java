@@ -20,8 +20,11 @@ public class Account {
         amount -= value;
     }
 
-    public void transfer(final Account to, final Account from, int value) {
+    public void transfer(final Account to, int value) {
+        if (0 > this.amount - value) {
+            throw new IllegalStateException();
+        }
         to.amount += value;
-        from.amount -= value;
+        this.amount -= value;
     }
 }

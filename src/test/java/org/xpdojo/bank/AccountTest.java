@@ -65,12 +65,22 @@ public class AccountTest {
     public void canTransferFromAnAccount() {
         final Account from = new Account();
         final Account to = new Account();
+        final int value = 100;
+        from.deposit(value);
         final int fromAmount = from.getAmount();
         final int toAmount = to.getAmount();
-        final int value = 100;
-        from.transfer(to, from, value);
-        assertEquals(toAmount + 100, to.getAmount());
-        assertEquals(fromAmount - 100, from.getAmount());
+        from.transfer(to, value);
+        assertEquals(toAmount + value, to.getAmount());
+        assertEquals(fromAmount - value, from.getAmount());
+    }
+
+    @Test
+    public void cantTransferMoreThanAvailable() {
+        assertThrows(IllegalStateException.class, () -> {
+            final Account from = new Account();
+            final Account to = new Account();
+            from.transfer(to, from.getAmount() + 1);
+        });
     }
 
 
