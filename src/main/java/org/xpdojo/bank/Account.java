@@ -10,4 +10,8 @@ public class Account {
     public int getAmount() {
         return amount;
     }
+
+    public void withdraw(final int value) {
+        amount -= value;
+    }
 }

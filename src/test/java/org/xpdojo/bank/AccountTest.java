@@ -31,4 +31,13 @@ public class AccountTest {
         assertEquals(200, subject.getAmount());
     }
 
+    @Test
+    public void withdrawAnAmount() {
+        subject = new Account();
+        final int initial = subject.getAmount();
+        final int val = 100;
+        subject.withdraw(100);
+        assertEquals(initial - val, subject.getAmount());
+    }
+
 }
