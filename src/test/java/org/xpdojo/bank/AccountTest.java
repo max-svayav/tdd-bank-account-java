@@ -3,6 +3,11 @@ package org.xpdojo.bank;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+import java.io.PrintStream;
+import java.io.StringWriter;
+import java.time.LocalDateTime;
+import java.util.Calendar;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -83,6 +88,12 @@ public class AccountTest {
         });
     }
 
-
+    @Test
+    public void timeKeeperCanBeConfigureToADate() {
+        final TimeKeeper keeper = new TimeKeeper();
+        final LocalDateTime now = LocalDateTime.now();
+        keeper.setTime(now);
+        assertEquals(now, keeper.getTime());
+    }
 
 }
