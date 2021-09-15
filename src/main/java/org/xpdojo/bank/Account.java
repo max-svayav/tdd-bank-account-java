@@ -1,5 +1,7 @@
 package org.xpdojo.bank;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Account {
@@ -26,5 +28,9 @@ public class Account {
         }
         to.amount += value;
         this.amount -= value;
+    }
+
+    public Collection getOperations() {
+        return Collections.EMPTY_LIST;
     }
 }

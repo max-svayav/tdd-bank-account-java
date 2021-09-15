@@ -111,4 +111,12 @@ public class AccountTest {
         assertTrue(s.endsWith(String.valueOf(account.getAmount())));
     }
 
+    @Test
+    public void accountStartOutWithEmptyOperationsList() {
+        final Account account = new Account();
+        assertTrue(account.getOperations().isEmpty());
+    }
+
+
+
 }
