@@ -50,4 +50,15 @@ public class AccountTest {
         });
     }
 
+    @Test
+    public void cantWithdrawMoreTHanAvailable() {
+        assertThrows(IllegalStateException.class, () -> {
+            subject = new Account();
+            final int val = 100;
+            subject.deposit(val);
+            final int amount  = subject.getAmount();
+            subject.withdraw(amount + 1);
+        });
+    }
+
 }
